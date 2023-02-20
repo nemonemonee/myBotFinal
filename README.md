@@ -29,7 +29,6 @@
    
    
    - Brain
-    * All sensor nerons send information to all motor neurons.
-    * The weight is random decided, ranging from (-1, 1).
-    * The brain is not trained in this assignment.
-  
+     * All sensor nerons send information to all motor neurons.
+     * The weight is random decided, ranging from (-1, 1).
+     * The brain is not trained in this assignment.
