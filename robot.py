@@ -15,6 +15,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
+        os.system("rm body" + str(solutionID) + ".urdf")
         os.system("rm brain" + str(solutionID) + ".nndf")
     
     def Prepare_To_Sense(self):
@@ -42,16 +43,13 @@ class ROBOT:
         self.nn.Update()
         
     def Get_Fitness(self):
-        #print("here")
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
         maxMovement = numpy.max(numpy.absolute(basePosition[:2]))
-#        print(basePosition)
-#        print(maxMovement)
         xPosition = basePosition[0]
         tmpFileName = "tmp" + str(self.solutionID) + ".txt"
         fitnessFileName = "fitness" + str(self.solutionID) + ".txt"
         f = open(tmpFileName, "w")
-        f.write(str(xPosition))
+        f.write(str(maxMovement))
         f.close()
         os.system("mv "+tmpFileName+" "+fitnessFileName)
