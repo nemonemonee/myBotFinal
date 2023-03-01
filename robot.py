@@ -5,6 +5,7 @@ from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import constants as c
+import numpy
 
 class ROBOT:
     def __init__(self, solutionID):
@@ -41,8 +42,12 @@ class ROBOT:
         self.nn.Update()
         
     def Get_Fitness(self):
+        #print("here")
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
+        maxMovement = numpy.max(numpy.absolute(basePosition[:2]))
+#        print(basePosition)
+#        print(maxMovement)
         xPosition = basePosition[0]
         tmpFileName = "tmp" + str(self.solutionID) + ".txt"
         fitnessFileName = "fitness" + str(self.solutionID) + ".txt"
