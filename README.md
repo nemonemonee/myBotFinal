@@ -42,5 +42,6 @@
    - Selection
      * My objective is to train a robot with the maximum xy-plane movement. Thus, I set the fitness score to be the maximum among the absolute values of the x, y coordinates at the end of each simulation. During the selection process, I always choose the ones with a higher fitness score.
    - Fitness Curve
-    ![Figure_1](https://user-images.githubusercontent.com/88709397/222053277-cece9a4e-ca49-42d8-8525-613789862f6e.png)
+
+![Figure_1](https://user-images.githubusercontent.com/88709397/222053277-cece9a4e-ca49-42d8-8525-613789862f6e.png)
    
