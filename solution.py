@@ -188,10 +188,11 @@ class SOLUTION:
         self.size[idxs] = randSize
         
     def SwapSensors(self):
-        i_true = numpy.random.choice(numpy.where(self.sensorOrNot==True)[0], 1)
-        i_false = numpy.random.choice(numpy.where(self.sensorOrNot==False)[0], 1)
-        self.sensorOrNot[i_true] = False
-        self.sensorOrNot[i_false] = True
+        if True in self.sensorOrNot and False in self.sensorOrNot:
+            i_true = numpy.random.choice(numpy.where(self.sensorOrNot==True)[0], 1)
+            i_false = numpy.random.choice(numpy.where(self.sensorOrNot==False)[0], 1)
+            self.sensorOrNot[i_true] = False
+            self.sensorOrNot[i_false] = True
         
     def Set_ID(self, id):
         self.myID = id
