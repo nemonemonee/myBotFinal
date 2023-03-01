@@ -21,7 +21,10 @@ class SOLUTION:
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python3 simulate.py "+directOrGUI+" "+str(self.myID)+" &")
+        if directOrGUI == "GUI":
+            os.system("python3 simulate.py GUI "+str(self.myID))
+        else:
+            os.system("python3 simulate.py "+directOrGUI+" "+str(self.myID)+" &")
 
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness"+str(self.myID)+".txt"
@@ -39,7 +42,7 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
-        pyrosim.Send_Cube(name="0", pos=self.abs_pos[0]), size=self.size[0], colorName=self.GetColor(0)[0], colorString=self.GetColor(0)[1])
+        pyrosim.Send_Cube(name="0", pos=self.abs_pos[0], size=self.size[0], colorName=self.GetColor(0)[0], colorString=self.GetColor(0)[1])
         allDir = {0:numpy.array([1,0,0]), 1:numpy.array([0,1,0]), 2:numpy.array([0,0,1]),
                   3:numpy.array([0,0,-1]), 4:numpy.array([0,-1,0]), 5:numpy.array([-1,0,0])}
        # center2pivot = allDir[growDir[0]]
@@ -47,24 +50,24 @@ class SOLUTION:
 #        center2pivot = numpy.random.randint(-1,2,3)
        # self.curr_pos += (self.size[0] + self.size[1]) * 0.5 * center2pivot
         for j in self.bodyPlan[0]:
-            if self.BottomDetection(j)
-                center2pivot = allDir[self.growDir[j]]
-                self.abs_pos[j] = self.abs_pos[0]+center2pivot*.5(self.size[0]+self.size[j])
-                pyrosim.Send_Joint(name="0_"+str(j), parent="0", child=str(j), type="revolute", position=self.abs_pos[0]+self.size[0]*.5*center2pivot, jointAxis = "1 1 1")
-                
-                pyrosim.Send_Cube(name=str(j), pos=self.size[j]*.5*center2pivot, size=self.size[j], colorName=self.GetColor(j)[0], colorString=self.GetColor(j)[1])
+            #if self.BottomDetection(j):
+            center2pivot = allDir[self.growDir[j]]
+            self.abs_pos[j] = self.abs_pos[0]+center2pivot*.5*(self.size[0]+self.size[j])
+            pyrosim.Send_Joint(name="0_"+str(j), parent="0", child=str(j), type="revolute", position=self.abs_pos[0]+self.size[0]*.5*center2pivot, jointAxis = "1 1 1")
+            
+            pyrosim.Send_Cube(name=str(j), pos=self.size[j]*.5*center2pivot, size=self.size[j], colorName=self.GetColor(j)[0], colorString=self.GetColor(j)[1])
         
         
         for i in self.bodyPlan:
             if i != 0:
                 pivot2center = allDir[self.growDir[i]]
                 for j in self.bodyPlan[i]:
-                    if self.BottomDetection(j):
-                        center2pivot = allDir[self.growDir[j]]
-                        pivot2pivot = (center2pivot + pivot2center) * 0.5
-                        self.abs_pos[j] = self.abs_pos[i]+center2pivot*.5(self.size[i]+self.size[j])
-                        pyrosim.Send_Joint(name=str(i)+"_"+str(j), parent=str(i), child=str(j), type="revolute", position=self.size[i]*pivot2pivot, jointAxis="1 1 1")
-                        pyrosim.Send_Cube(name=str(j), pos=self.size[j]*0.5*center2pivot, size=self.size[j], colorName=self.GetColor(j)[0], colorString=self.GetColor(j)[1])
+#                if self.BottomDetection(j):
+                    center2pivot = allDir[self.growDir[j]]
+                    pivot2pivot = (center2pivot + pivot2center) * 0.5
+                    self.abs_pos[j] = self.abs_pos[i]+center2pivot*.5*(self.size[i]+self.size[j])
+                    pyrosim.Send_Joint(name=str(i)+"_"+str(j), parent=str(i), child=str(j), type="revolute", position=self.size[i]*pivot2pivot, jointAxis="1 1 1")
+                    pyrosim.Send_Cube(name=str(j), pos=self.size[j]*0.5*center2pivot, size=self.size[j], colorName=self.GetColor(j)[0], colorString=self.GetColor(j)[1])
         pyrosim.End()
 #        print("body finished")
 #        self.BottomDetection(1, center2pivot)
@@ -185,8 +188,8 @@ class SOLUTION:
         self.size[idxs] = randSize
         
     def SwapSensors(self):
-        i_true = numpy.random.choice(numpy.where(self.sensorOrNot==True), 1)
-        i_false = numpy.random.choice(numpy.where(self.sensorOrNot==False), 1)
+        i_true = numpy.random.choice(numpy.where(self.sensorOrNot==True)[0], 1)
+        i_false = numpy.random.choice(numpy.where(self.sensorOrNot==False)[0], 1)
         self.sensorOrNot[i_true] = False
         self.sensorOrNot[i_false] = True
         

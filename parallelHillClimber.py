@@ -65,6 +65,7 @@ class PARALLEL_HILL_CLIMBER:
         input()
         print(self.fitnessRecords)
         numpy.save("fitData.npy", self.fitnessRecords)
+        top5 = numpy.zeros(5)
         for i in self.parents:
             self.parents[i].Start_Simulation("GUI")
 
