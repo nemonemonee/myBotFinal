@@ -48,6 +48,6 @@
 ![Fitscore](https://user-images.githubusercontent.com/88709397/222328421-6799b6fe-fe2a-4e52-a203-8d6267c1c968.png)
 
 
- Future Work
-    * I am thinking of using more complicated evolution plan such as for each generation we choose the best 50 % and duplicate them. Moreover, ideas such as cross-over can be simulated.
-    * Different joints can be used.
+   - Future Work
+     * I am thinking of using more complicated evolution plan such as for each generation we choose the best 50 % and duplicate them. Moreover, ideas such as cross-over can be simulated.
+     * Different joints can be used.
